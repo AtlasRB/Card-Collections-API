@@ -54,7 +54,7 @@ class CollectionController extends Controller
         if (! $card->save()) {
             return response()->json([
                 'message' => 'Could not update card',
-            ]);
+            ], status: 500);
         }
 
         return response()->json([
@@ -81,7 +81,7 @@ class CollectionController extends Controller
         if (! $card->save()) {
             return response()->json([
                 'message' => 'Could not add card',
-            ]);
+            ], status: 500);
         }
 
         return response()->json([
