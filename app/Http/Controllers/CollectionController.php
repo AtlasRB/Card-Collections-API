@@ -9,10 +9,17 @@ class CollectionController extends Controller
 {
     public $hidden = ['id', 'created_at', 'updated_at'];
 
-    public function getAllCards()
+    public function getAllCards(Request $request)
     {
         $cards = cards::all();
+        $search = $request->search;
 
+        if ($search) {
+            return response()->json([
+                'message' => 'Showing searched cards',
+                'data' => cards::where('name', 'LIKE', "%$search%")->get()->makeHidden($this->hidden)
+                ]);
+        }
         return response()->json([
             'message' => 'Presenting all cards',
             'data' => $cards->makeHidden($this->hidden),
