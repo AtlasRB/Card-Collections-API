@@ -14,7 +14,7 @@ class CollectionSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 151; $i++) {
-            DB::table('cards')->insert([
+            DB::table('card')->insert([
                 'name' => Str::random(10),
                 'number' => rand(1, 151),
                 'type' => Str::random(10),

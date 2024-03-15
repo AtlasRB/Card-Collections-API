@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cards;
+use App\Models\card;
 use Illuminate\Http\Request;
 
 class CollectionController extends Controller
@@ -11,24 +11,24 @@ class CollectionController extends Controller
 
     public function getAllCards(Request $request)
     {
-        $cards = cards::all();
+        $cards = card::all();
         $search = $request->search;
 
         if ($search) {
             return response()->json([
-                'message' => 'Showing searched cards',
-                'data' => cards::where('name', 'LIKE', "%$search%")->get()->makeHidden($this->hidden)
+                'message' => 'Showing searched card',
+                'data' => card::where('name', 'LIKE', "%$search%")->get()->makeHidden($this->hidden)
                 ]);
         }
         return response()->json([
-            'message' => 'Presenting all cards',
+            'message' => 'Presenting all card',
             'data' => $cards->makeHidden($this->hidden),
         ]);
     }
 
     public function getSingleCard(int $id)
     {
-        $card = cards::find($id);
+        $card = card::find($id);
 
         return response()->json([
             'message' => 'Presenting single card',
@@ -45,7 +45,7 @@ class CollectionController extends Controller
             'collected' => 'required|boolean',
         ]);
 
-        $card = cards::find($id);
+        $card = card::find($id);
         $card->name = $request->name;
         $card->number = $request->number;
         $card->type = $request->type;
@@ -72,7 +72,7 @@ class CollectionController extends Controller
             'collected' => 'required|boolean',
         ]);
 
-        $card = new cards();
+        $card = new card();
         $card->name = $request->name;
         $card->number = $request->number;
         $card->type = $request->type;
@@ -92,7 +92,7 @@ class CollectionController extends Controller
 
     public function deleteCard(int $id)
     {
-        $card = cards::find($id);
+        $card = card::find($id);
         $card->delete();
 
         return response()->json([

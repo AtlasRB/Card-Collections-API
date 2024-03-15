@@ -9,9 +9,9 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::controller(CollectionController::class)->group(function () {
-    Route::get('/cards', 'getAllCards');
-    Route::get('/cards/{id}', 'getSingleCard');
-    Route::put('/cards/{id}', 'changeCard');
-    Route::post('/cards', 'addCard');
-    Route::delete('/cards/{id}', 'deleteCard');
+    Route::get('/card', 'getAllCards');
+    Route::get('/card/{id}', 'getSingleCard');
+    Route::put('/card/{id}', 'changeCard');
+    Route::post('/card', 'addCard');
+    Route::delete('/card/{id}', 'deleteCard');
 });
