@@ -10,18 +10,20 @@ class CollectionController extends Controller
     public function getAllCards()
     {
         $cards = cards::all();
+
         return response()->json([
             'message' => 'Presenting all cards',
-            'data' => $cards
+            'data' => $cards,
         ]);
     }
 
     public function getSingleCard(int $id)
     {
         $card = cards::find($id);
+
         return response()->json([
             'message' => 'Presenting single card',
-            'data' => $card
+            'data' => $card,
         ]);
     }
 
@@ -31,7 +33,7 @@ class CollectionController extends Controller
             'name' => 'required|max:50|string',
             'number' => 'required|min:0|integer',
             'type' => 'required|max:50|string',
-            'collected' => 'required|boolean'
+            'collected' => 'required|boolean',
         ]);
 
         $card = cards::find($id);
@@ -40,15 +42,15 @@ class CollectionController extends Controller
         $card->type = $request->type;
         $card->collected = $request->collected;
 
-        if (!$card->save()) {
+        if (! $card->save()) {
             return response()->json([
-                'message' => 'Could not update card'
+                'message' => 'Could not update card',
             ]);
         }
 
         return response()->json([
             'message' => 'Card updated',
-            'data' => $card
+            'data' => $card,
         ]);
     }
 
@@ -58,7 +60,7 @@ class CollectionController extends Controller
             'name' => 'required|max:50|string',
             'number' => 'required|min:0|integer',
             'type' => 'required|max:50|string',
-            'collected' => 'required|boolean'
+            'collected' => 'required|boolean',
         ]);
 
         $card = new cards();
@@ -67,15 +69,15 @@ class CollectionController extends Controller
         $card->type = $request->type;
         $card->collected = $request->collected;
 
-        if (!$card->save()) {
+        if (! $card->save()) {
             return response()->json([
-                'message' => 'Could not add card'
+                'message' => 'Could not add card',
             ]);
         }
 
         return response()->json([
             'message' => 'Card added',
-            'data' => $card
+            'data' => $card,
         ], status: 201);
     }
 
@@ -83,8 +85,9 @@ class CollectionController extends Controller
     {
         $card = cards::find($id);
         $card->delete();
-        return response ()->json([
-            'message' => 'Card deleted'
+
+        return response()->json([
+            'message' => 'Card deleted',
         ]);
     }
 }
