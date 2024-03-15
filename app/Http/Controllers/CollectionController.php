@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 
 class CollectionController extends Controller
 {
+    public $hidden = ['id', 'created_at', 'updated_at'];
+
     public function getAllCards()
     {
         $cards = cards::all();
 
         return response()->json([
             'message' => 'Presenting all cards',
-            'data' => $cards,
+            'data' => $cards->makeHidden($this->hidden),
         ]);
     }
 
@@ -23,7 +25,7 @@ class CollectionController extends Controller
 
         return response()->json([
             'message' => 'Presenting single card',
-            'data' => $card,
+            'data' => $card->makeHidden($this->hidden),
         ]);
     }
 
@@ -50,7 +52,7 @@ class CollectionController extends Controller
 
         return response()->json([
             'message' => 'Card updated',
-            'data' => $card,
+            'data' => $card->makeHidden($this->hidden),
         ]);
     }
 
@@ -77,7 +79,7 @@ class CollectionController extends Controller
 
         return response()->json([
             'message' => 'Card added',
-            'data' => $card,
+            'data' => $card->makeHidden($this->hidden),
         ], status: 201);
     }
 
